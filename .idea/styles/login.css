@@ -1,0 +1,96 @@
+#logo{
+    margin-right: 20px;
+    margin-top: -10px;
+}
+#h1{
+    color: #043054;
+    font-size: 30px;
+    font-weight: bolder;
+}
+#logout{
+    margin-left: 20px;
+}
+#cardset{
+    padding: 40px;
+    height: 600px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.navbar-expand-lg .navbar-collapse {
+    display: flex !important;
+    flex-basis: auto;
+    justify-content: end;
+}
+
+#loginhero{
+    margin-left: 50px;
+    padding: 40px;
+    display: flex;
+flex-wrap: wrap;
+flex-direction: row;
+    justify-content: space-evenly;
+}
+#loginhero div:nth-child(1) h1 {
+    font-weight: bold;
+    font-style: italic;
+    font-size: 50px;
+    width: 350px;
+    color: black;
+}
+#loginhero div:nth-child(1) h2 {
+    margin-top: 50px;
+    font-size: 20px;
+    width: 300px;
+    color: #424141;
+
+}
+#loginhero div:nth-child(1) ul li{
+    list-style-type: circle;
+    font-weight: bold;
+    color:blue;
+}
+#logincard{
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    margin-top: 50px;
+    padding: 40px;
+    justify-self: center;
+    max-width: 400px;
+    min-width: 300px;
+    max-height: 500px;
+    min-height: 400px;
+    background: #ffffff;
+    border-radius: 20px;
+
+}
+#logincard h1{
+    color: green;
+    font-size: 50px;
+    font-style: italic;
+    font-family: "Droid Sans Mono";
+}
+#logincard p{
+  margin-top: 30px;
+    color: black;
+}
+#btn{
+    margin-top: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
