@@ -51,41 +51,46 @@
 <body>
 
 <header>
+
+
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a id="h1" class="navbar-brand" href="#"><img src=".idea/assets/images/add-product.png" id="logo" width="50">SuperCenter</a>
+            <a id="h1" class="navbar-brand" href="#"><img src=".idea/assets/images/add-product.png"id="logo" width="50">SuperCenter</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link active" aria-current="page" href="login_form.html">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Item</a>
+                        <a class="nav-link" href="item.html">Item</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Dropdown
+                        </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Order</a></li>
-                            <li><a class="dropdown-item" href="#">Customer</a></li>
+                            <li><a class="dropdown-item" href="placeOrder.html">Order</a></li>
+                            <li><a class="dropdown-item" href="customer.html">Customer</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
                     </li>
+
                 </ul>
                 <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
-                    <a href="login_form.html"><button class="btn btn-outline-danger" type="submit" id="logout">Logout</button></a>
+                    <a href="login_form.html"><button class="btn btn-outline-danger" type="submit"id="logout">logout</button></a>
                 </form>
             </div>
         </div>
     </nav>
+
 </header>
 
-<!-- Customer & Order Forms -->
 <div id="cardset" class="padding">
     <!-- Customer Form -->
     <div class="card text-bg-primary mb-3">
