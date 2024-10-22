@@ -55,7 +55,7 @@
                 <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
-                    <a href="login_form.html"><button class="btn btn-outline-danger" type="submit"id="logout">logout</button></a>
+                    <a href=""><button class="btn btn-outline-danger" type="submit"id="logout">logout</button></a>
                 </form>
             </div>
         </div>
@@ -111,18 +111,18 @@ customer form
                                 <input type="text" id="id" class="form-control" placeholder="Customer id" required>
                             </div>
                             <div class="col-md-6">
-                                <input type="email" id="name" class="form-control" placeholder="Customer name" required>
+                                <input type="text" id="name" class="form-control" placeholder="Customer name" required>
                             </div>
                             <div class="col-md-6">
-                                <input type="email" id="address" class="form-control" placeholder="Customer address" required>
+                                <input type="text" id="address" class="form-control" placeholder="Customer address" required>
                             </div> <div class="col-md-6">
-                            <input type="email" id="salary" class="form-control" placeholder="Customer salary" required>
+                            <input type="text" id="salary" class="form-control" placeholder="Customer salary" required>
                         </div>
                         </div>
-                        <button type="submit" class="btn btn-success mt-3" id="btn1">Save </button>
-                        <button type="submit" class="btn btn-secondary mt-3" id="btn4">Update </button>
-                        <button type="submit" class="btn btn-danger mt-3" id="btn2">Delete </button>
-                        <button type="submit" class="btn btn-primary mt-3" id="btn3">search</button>
+                        <button type="submit" class="btn btn-success mt-3" id="customersave">Save </button>
+                        <button type="submit" class="btn btn-secondary mt-3" id="customerupdate">Update </button>
+                        <button type="submit" class="btn btn-danger mt-3" id="customerdelete">Delete </button>
+                        <button type="submit" class="btn btn-primary mt-3" id="customersearch">search</button>
                         </button>
                     </form>
                 </div>
@@ -169,32 +169,32 @@ item form
                     Add / Update Item
                 </div>
                 <div class="card-body">
-                    <form id="customerForm1">
-                        <input type="hidden" id="customerId1">
+                    <form id="itemform">
+                        <input type="hidden">
                         <div class="row">
                             <div class="col-md-6">
-                                <input type="text" id="id1" class="form-control" placeholder="item id" required>
+                                <input type="text" id="iid" class="form-control" placeholder="item id" required>
                             </div>
                             <div class="col-md-6">
-                                <input type="email" id="name1" class="form-control" placeholder="description" required>
+                                <input type="text" id="iname" class="form-control" placeholder="description" required>
                             </div>
                             <div class="col-md-6">
-                                <input type="email" id="address1" class="form-control" placeholder="Qty on hand" required>
+                                <input type="number" id="iqty" class="form-control" placeholder="Qty on hand" required>
                             </div> <div class="col-md-6">
-                            <input type="email" id="salary1" class="form-control" placeholder="unit price" required>
+                            <input type="number" id="iprice" class="form-control" placeholder="unit price" required>
                         </div>
                         </div>
-                        <button type="submit" class="btn btn-success mt-3" id="btn11">Save </button>
-                        <button type="submit" class="btn btn-secondary mt-3" id="btn41">Update </button>
-                        <button type="submit" class="btn btn-danger mt-3" id="btn21">Delete </button>
-                        <button type="submit" class="btn btn-primary mt-3" id="btn13">search</button>
+                        <button type="submit" class="btn btn-success mt-3" id="itemsave">Save </button>
+                        <button type="submit" class="btn btn-secondary mt-3" id="itemupdate">Update </button>
+                        <button type="submit" class="btn btn-danger mt-3" id="itemdelete">Delete </button>
+                        <button type="submit" class="btn btn-primary mt-3" id="itemsearch">search</button>
                         </button>
                     </form>
                 </div>
             </div>
         </div>
 
-        <div class="table-section" id="table1">
+        <div class="table-section" id="itemtable">
 
             <h1 id="customer1">All Items</h1>
             <div class="card">
@@ -211,7 +211,7 @@ item form
                             <th>unit price</th>
                         </tr>
                         </thead>
-                        <tbody id="customerTableBody1">
+                        <tbody id="itemTableBody">
                         </tbody>
                     </table>
                 </div>
@@ -219,7 +219,6 @@ item form
         </div>
     </div>
 </section >
-
 
 <!--placeorder-->
 
@@ -254,7 +253,7 @@ item form
                 <div class="card-header">Items</div>
                 <div class="card-body">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Item ID" aria-label="ItemID" id="itemId">
+                        <input type="text" class="form-control" placeholder="Item ID" aria-label="ItemID" id="#">
                     </div>
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="Item Name" aria-label="ItemName" id="itemName">
@@ -314,6 +313,10 @@ item form
     </div>
 </section>
 
+
+<script src=".idea/assets/lib/jquery-3.7.1.min.js"></script>
+<script src=".idea/js/customer.js"></script>
+<script src=".idea/js/item.js"></script>
 <script>
 let home = document.getElementById("home");
 let item = document.getElementById("item");
