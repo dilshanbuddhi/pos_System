@@ -1,4 +1,7 @@
-let itemary = [];
+import ItemModel from '../models/ItemModel.js';
+import {customerary,itemary} from "../db/db.js";
+
+let itemindex;
 
 const loadItemTable = () => {
     $("#itemTableBody").empty();
@@ -6,7 +9,7 @@ const loadItemTable = () => {
     itemary.map((item) => {
         let data = `<tr>
             <td>${item.id}</td>
-            <td>${item.name}</td>
+            <td>${item.des}</td>
             <td>${item.qty}</td>
             <td>${item.price}</td>
         </tr>`
@@ -27,18 +30,17 @@ $("#itemsave").on('click', function(event) {
     event.preventDefault();
 
     let id = $("#iid").val();
-    let name = $("#iname").val();
+    let des = $("#iname").val();
     let qty = $("#iqty").val();
     let price = $("#iprice").val();
 
-    let itemobj = { id, name, qty, price };
-    itemary.push(itemobj);
-
-    console.log(itemobj);
+    let itemModel = new ItemModel(id, des , qty,price);
+    itemary.push(itemModel);
 
     loadItemTable();
     clear();
 });
+
 
 // Search Item
 $("#itemsearch").on('click', function(event) {
@@ -48,13 +50,15 @@ $("#itemsearch").on('click', function(event) {
 
     for (let i = 0; i < itemary.length; i++) {
         if (itemary[i].id === id) {
-            $("#iname").val(itemary[i].name);
+            itemindex = i;
+            $("#iname").val(itemary[i].des);
             $("#iqty").val(itemary[i].qty);
             $("#iprice").val(itemary[i].price);
-            return;
+        } else{
+            alert("Item not found.");
         }
     }
-    alert("Item not found.");
+
 });
 
 // Delete Item
@@ -63,15 +67,10 @@ $("#itemdelete").on('click', function(event) {
 
     let id = $("#iid").val();
 
-    for (let i = 0; i < itemary.length; i++) {
-        if (itemary[i].id === id) {
-            itemary.splice(i, 1);
-            loadItemTable();
-            clear();
-            return;
-        }
-    }
-    alert("Item not found.");
+
+    itemary.splice(itemary[itemindex] , 1);
+    loadItemTable();
+    clear();
 });
 
 // Update Item
@@ -79,17 +78,26 @@ $("#itemupdate").on('click', function(event) {
     event.preventDefault();
 
     let id = $("#iid").val();
-    let name = $("#iname").val();
+    let des = $("#iname").val();
     let qty = $("#iqty").val();
     let price = $("#iprice").val();
 
-    for (let i = 0; i < itemary.length; i++) {
-        if (itemary[i].id === id) {
-            itemary[i] = { id, name, qty, price };
-            loadItemTable();
-            clear();
-            return;
-        }
-    }
-    alert("Item not found.");
+    itemary[itemindex].id = id
+    itemary[itemindex].des = des;
+    itemary[itemindex].qty = qty;
+    itemary[itemindex].price = price;
+
+    loadCustomerTable();
+    clearcustomer();
+
+});
+
+$('#itemTableBody').on("click" ,'tr', function (event) {
+    event.preventDefault();
+    itemindex = $(this).index();
+
+    $("#iid").val(itemary[itemindex].id);
+    $("#iname").val(itemary[itemindex].des);
+    $("#iqty").val(itemary[itemindex].qty);
+    $("#iprice").val(itemary[itemindex].price);
 });

@@ -18,6 +18,11 @@
             padding: 20px;
             margin: 30px;
         }
+
+        #ordersec{
+            padding: 50px;
+            padding-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -221,100 +226,76 @@ item form
 <!--placeorder-->
 
 <section id="ordersec">
-    <div id="cardset1" class="padding">
+    <!-- Order Form -->
+    <h3 class="mt-5">Order</h3>
 
-
-        <div id="setofdesc">
-            <div class="card text-bg-primary mb-3 padding">
-                <div class="card-header">Invoice</div>
-                <div class="card-body">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Order ID" aria-label="OrderID" id="orderId">
-                    </div>
-                    <div class="input-group mb-3">
-                        <input type="date" class="form-control" id="orderDate">
-                    </div>
-                    <div class="mb-3">
-                        <select class="form-select" id="customerI1d">
-                            <option selected disabled>Choose Customer ID</option>
-                            <option value="C001">C001</option>
-                            <option value="C002">C002</option>
-                            <option value="C003">C003</option>
+    <div class="card my-4">
+        <div class="card-body">
+            <form id="orderForm">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="customerSelect" class="form-label">Select Customer</label>
+                        <select class="form-select" id="customerSelect" required>
+                            <option selected disabled value="">Choose a customer</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-danger mt-3" id="addInvoice">Add Invoice</button>
+                    <div class="col-md-6">
+                        <label for="customerName" class="form-label">Customer Name</label>
+                        <input type="text" class="form-control" id="customerName" placeholder="Customer Name" disabled>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Item Form -->
-            <div class="card text-bg-primary mb-3 padding">
-                <div class="card-header">Items</div>
-                <div class="card-body">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Item ID" aria-label="ItemID" id="#">
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label for="itemSelect" class="form-label">Select Item</label>
+                        <select class="form-select" id="itemSelect" required>
+                            <option selected disabled value="">Choose an item</option>
+                        </select>
                     </div>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Item Name" aria-label="ItemName" id="itemName">
+                    <div class="col-md-2">
+                        <label for="qtyOnHand" class="form-label">Qty On Hand</label>
+                        <input type="number" class="form-control" id="qtyOnHand" placeholder="Available" disabled>
                     </div>
-                    <div class="mb-3">
-                        <input type="number" class="form-control" placeholder="Unit Price" id="unitPrice">
+                    <div class="col-md-2">
+                        <label for="unitPrice" class="form-label">Unit Price ($)</label>
+                        <input type="number" class="form-control" id="unitPrice" placeholder="Unit Price" disabled>
                     </div>
-                    <div class="mb-3">
-                        <input type="number" class="form-control" placeholder="Qty on Hand" id="qtyOnHand">
+                    <div class="col-md-2">
+                        <label for="quantity" class="form-label">Quantity</label>
+                        <input type="number" class="form-control" id="quantity" placeholder="Enter quantity" required>
                     </div>
-                    <div class="mb-3">
-                        <input type="number" class="form-control" placeholder="Order Qty" id="orderQty">
-                    </div>
-                    <button type="submit" class="btn btn-danger mt-3" id="addItem">Add Item</button>
                 </div>
-            </div>
-
-            <!-- Bill Section -->
-            <div class="card text-bg-primary mb-3 padding">
-                <div class="card-header">Bill</div>
-                <div class="card-body">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Cash" id="cash">
-                    </div>
-                    <div class="mb-3">
-                        <input type="number" class="form-control" placeholder="Discount" id="discount">
-                    </div>
-                    <button type="button" class="btn btn-dark" id="purchesBtn">Purchase</button>
-                </div>
-            </div>
+                <button type="button" class="btn btn-primary w-100" id="addcart">Add Item to Order</button>
+            </form>
         </div>
-        <!-- Customer Form -->
+    </div>
 
+    <!-- Order Table -->
+    <h3 class="mt-5">Order Details</h3>
+    <table class="table table-bordered table-striped mt-3">
+        <thead>
+        <tr>
+            <th>Customer</th>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Unit Price</th>
+            <th>Total</th>
+        </tr>
+        </thead>
+        <tbody id="orderTableBody">
+        <!-- Order items will be added here -->
+        </tbody>
+    </table>
 
-        <!-- Cart Section -->
-        <div class="table-section" id="tabl1e">
-            <div class="card">
-                <h1>Cart</h1>
-                <div class="card-body" id="tablecard">
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th>Code</th>
-                            <th>Name</th>
-                            <th>Price</th>
-                            <th>Qty</th>
-                            <th>Total</th>
-                        </tr>
-                        </thead>
-                        <tbody id="customerTableBody11">
-                        <!-- Dynamic customer rows will go here -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+    <!-- Order Total & Place Order Button -->
+    <div class="d-flex justify-content-between align-items-center">
+        <h4 id="orderTotal">Order Total: Rs.0.00</h4>
+        <button class="btn btn-success" id="placeOrder">Place Order</button>
     </div>
 </section>
 
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src=".idea/assets/lib/jquery-3.7.1.min.js"></script>
-<script src=".idea/js/customer.js"></script>
-<script src=".idea/js/item.js"></script>
 <script>
 let home = document.getElementById("home");
 let item = document.getElementById("item");
@@ -378,62 +359,10 @@ placeorder.addEventListener('click',function (){
 
 
 </script>
-
-<!--
-<script>
-
-    // Wait until the page is fully loaded before adding event listeners
-    document.addEventListener('DOMContentLoaded', function () {
-        let home = document.getElementById("home");
-        let item = document.getElementById("item");
-        let customer = document.getElementById("customerdash");
-        let placeorder = document.getElementById("order");
-
-        let homesec = document.getElementById("dashsec");
-        let itemsec = document.getElementById("itemsec");
-        let customersec = document.getElementById("customersec");
-        let ordersec = document.getElementById("ordersec");
-
-        itemsec.style.display = "none";
-        customersec.style.display = "none";
-        ordersec.style.display = "none";
-
-        item.addEventListener('click', function (event) {
-            event.preventDefault();
-            homesec.style.display = "none";
-            customersec.style.display = "none";
-            ordersec.style.display = "none";
-            itemsec.style.display = "block";
-        });
-
-        home.addEventListener('click', function (event) {
-            event.preventDefault();
-            homesec.style.display = "block";
-            customersec.style.display = "none";
-            ordersec.style.display = "none";
-            itemsec.style.display = "none";
-        });
-
-        customer.addEventListener('click', function (event) {
-            event.preventDefault();
-            homesec.style.display = "none";
-            customersec.style.display = "block";
-            ordersec.style.display = "none";
-            itemsec.style.display = "none";
-        });
-
-        placeorder.addEventListener('click', function (event) {
-            event.preventDefault();
-            homesec.style.display = "none";
-            customersec.style.display = "none";
-            ordersec.style.display = "block";
-            itemsec.style.display = "none";
-        });
-    });
-
-
-</script>
--->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script  type="module" src=".idea/contraller/customer.js"></script>
+<script  type="module" src=".idea/contraller/item.js"></script>
+<script  type="module" src=".idea/contraller/order.js"></script>
+
 </body>
 </html>
