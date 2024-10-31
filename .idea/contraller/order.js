@@ -25,6 +25,7 @@ const clearOrderForm = () => {
     $("#itemSelect").val("");
     $("#unitPrice").val("");
     $("#quantity").val("");
+    $("#qtyOnHand").val("");
 };
 
 const loadCustomerselect = () => {
@@ -69,6 +70,7 @@ $("#itemSelect").on("change", function (event) {
 
 $("#addcart").on("click", function (event) {
     event.preventDefault();
+
     let cid = $("#customerSelect").val();
     let iid = $("#itemSelect").val();
     let qtyOnHand = parseInt($("#qtyOnHand").val()); // Convert qtyOnHand to a number
@@ -76,30 +78,50 @@ $("#addcart").on("click", function (event) {
     let quantity = parseInt($("#quantity").val()); // Convert quantity to a number
     let tot = unitprice * quantity;
 
-    if (quantity > qtyOnHand) {
-        alert("Quantity exceeds available stock!");
-    }else{
-        let cartdata = new CartModel(cid, iid, quantity, unitprice, tot);
+    // Check if customer and item are selected and if quantity is valid
+    if (cid.length !== 0 && iid.length !== 0 && quantity > 0) {
+        if (quantity > qtyOnHand) {
+            Swal.fire({
+                position: "center",
+                icon: "error",  // Fix icon name (lowercase)
+                title: "Quantity not available",
+                showConfirmButton: false,
+                timer: 1500
+            });
+        } else {
+            let cartdata = new CartModel(cid, iid, quantity, unitprice, tot);
 
-        // Update item quantity
-        updateItem(iid, quantity);
+            // Update item quantity
+            updateItem(iid, quantity);
 
-/*
-        $("#qtyOnHand").val(itemary[itemindex - 1].qty);  // Set updated qtyOnHand value
-*/
+            /*
+            // Uncomment this if you are updating qtyOnHand dynamically
+            $("#qtyOnHand").val(itemary[itemindex - 1].qty);  // Set updated qtyOnHand value
+            */
 
-        console.log(cartdata);
-        cart.push(cartdata);
+            console.log(cartdata);
+            cart.push(cartdata);
 
-        grandtotal += tot;
-        $("#orderTotal").empty();
-        $("#orderTotal").append("Total : " + grandtotal + "/=");
+            // Update the grand total
+            grandtotal += tot;
+            $("#orderTotal").empty();
+            $("#orderTotal").append("Total : " + grandtotal.toFixed(2) + "/="); // Keep 2 decimal places
 
-        loadOrderTable();
-        clearOrderForm();
+            // Reload the order table with new data
+            loadOrderTable();
+
+            // Clear the order form after adding item to the cart
+            clearOrderForm();
+        }
+    } else {
+        Swal.fire({
+            position: "center",
+            icon: "warning",
+            title: "Please select customer and item",
+            showConfirmButton: false,
+            timer: 1500
+        });
     }
-
-
 });
 
 function updateItem(iid, quantity) {
@@ -137,9 +159,17 @@ $("#placeOrder").on("click", function (event) {
 
 
     $("#orderTableBody").empty();
+    $("#orderTotal").empty();
     $("#orderTotal").append("Total : 0.00/=");
 
     clearOrderForm();
     cart.splice(0 , cart.length);
     console.log(order);
+    Swal.fire({
+        position: "success",
+        icon: "success",
+        title: "Order placed successfully",
+        showConfirmButton: false,
+        timer: 1500
+    });
 });

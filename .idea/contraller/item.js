@@ -34,13 +34,65 @@ $("#itemsave").on('click', function(event) {
     let qty = $("#iqty").val();
     let price = $("#iprice").val();
 
-    let itemModel = new ItemModel(id, des , qty,price);
-    itemary.push(itemModel);
+    if (!validIId(id)) {
+        Swal.fire({
+            position: "center",
+            icon: "warning",
+            title: "invalid Item ID",
+            showConfirmButton: false,
+            timer: 1500
+        });
+    } else if(des.length === 0) {
+        Swal.fire({
+            position: "center",
+            icon: "warning",
+            title: "Item Description cannot be empty",
+            showConfirmButton: false,
+            timer: 1500
+        });
+    } else if(qty.length === 0) {
+        Swal.fire({
+            position: "center",
+            icon: "warning",
+            title: "Item Quantity cannot be empty",
+            showConfirmButton: false,
+            timer: 1500
+        });
+    } else if(price.length === 0) {
+        Swal.fire({
+            position: "center",
+            icon: "warning",
+            title: "Item Price cannot be empty",
+            showConfirmButton: false,
+            timer: 1500
+        });
+    } else {
+        let itemModel = new ItemModel(id, des , qty,price);
+        itemary.push(itemModel);
 
-    loadItemTable();
-    clear();
+        loadItemTable();
+        clear();
+        Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Item saved successfully",
+            showConfirmButton: false,
+            timer: 1500
+        });
+    }
+
+
 });
 
+const validIId = (iid) => {
+    const iidregex = /^I\d+$/;
+    return iidregex.test(iid);
+}
+
+$("#item").on("click", function (event) {
+    event.preventDefault();
+    loadItemTable();
+});
 
 // Search Item
 $("#itemsearch").on('click', function(event) {
@@ -65,12 +117,29 @@ $("#itemsearch").on('click', function(event) {
 $("#itemdelete").on('click', function(event) {
     event.preventDefault();
 
-    let id = $("#iid").val();
+
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            itemary.splice(itemary[itemindex] , 1);
+            loadItemTable();
+            clear();
+            Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success"
+            });
+        }
+    });
 
 
-    itemary.splice(itemary[itemindex] , 1);
-    loadItemTable();
-    clear();
 });
 
 // Update Item
@@ -82,13 +151,61 @@ $("#itemupdate").on('click', function(event) {
     let qty = $("#iqty").val();
     let price = $("#iprice").val();
 
-    itemary[itemindex].id = id
-    itemary[itemindex].des = des;
-    itemary[itemindex].qty = qty;
-    itemary[itemindex].price = price;
+    if (!validIId(id)) {
+        Swal.fire({
+            position: "center",
+            icon: "warning",
+            title: "invalid Item ID",
+            showConfirmButton: false,
+            timer: 1500
+        });
+    } else if(des.length === 0) {
+        Swal.fire({
+            position: "center",
+            icon: "warning",
+            title: "Item Description cannot be empty",
+            showConfirmButton: false,
+            timer: 1500
+        });
+    } else if(qty > 0) {
+        Swal.fire({
+            position: "center",
+            icon: "warning",
+            title: "Item Quantity cannot be empty",
+            showConfirmButton: false,
+            timer: 1500
+        });
+    } else if(price > 0) {
+        Swal.fire({
+            position: "center",
+            icon: "warning",
+            title: "Item Price cannot be empty",
+            showConfirmButton: false,
+            timer: 1500
+        });
+    } else {
+        Swal.fire({
+            title: "Do you want to save the changes?",
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: "Save",
+            denyButtonText: `Don't save`
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                itemary[itemindex].id = id
+                itemary[itemindex].des = des;
+                itemary[itemindex].qty = qty;
+                itemary[itemindex].price = price;
 
-    loadCustomerTable();
-    clearcustomer();
+                loadItemTable();
+                clear();
+                Swal.fire("Saved!", "", "success");
+            } else if (result.isDenied) {
+                Swal.fire("Changes are not saved", "", "info");
+            }
+        });
+    }
 
 });
 

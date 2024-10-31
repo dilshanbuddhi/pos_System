@@ -31,27 +31,56 @@ $("#customersave").on("click", function (event) {
     let caddress = $("#address").val();
     let csalary = $("#salary").val();
 
-    if (cid !== "" && cname !== "" ){
-        if (vallidnumber(cid)){
-            customerary.length+1;
+    if (!validCId(cid)){
+        Swal.fire({
+            position: "center",
+            icon: "warning",
+            title: "invalid Customer ID",
+            showConfirmButton: false,
+            timer: 1500
+        });
+    }else if(!cname.length > 0){
+        Swal.fire({
+            position: "center",
+            icon: "warning",
+            title: "invalid Name",
+            showConfirmButton: false,
+            timer: 1500
+        });
+    }else if(!caddress.length > 0){
+        Swal.fire({
+            position: "center",
+            icon: "warning",
+            title: "invalid Address",
+            showConfirmButton: false,
+            timer: 1500
+        });
+    }else if(!csalary.length > 0){
+        Swal.fire({
+            position: "center",
+            icon: "warning",
+            title: "invalid telephone",
+            showConfirmButton: false,
+            timer: 1500
+        });
+    }else{
+        let cus = new CustomerModel(
+            cid,
+            cname,
+            caddress,
+            csalary
+        );
+        customerary.push(cus);
+        loadCustomerTable();
+        clearcustomer();
+        Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Your work has been saved",
+            showConfirmButton: false,
+            timer: 1500
+        });
 
-            let cus = new CustomerModel(
-                cid,
-                cname,
-                caddress,
-                csalary
-            );
-
-            console.log(cus);
-            customerary.push(cus);
-
-            loadCustomerTable();
-            clearcustomer();
-        }else{
-            alert("invalid number")
-        }
-    } else{
-        alert("Fill All Data")
     }
 
 });
@@ -59,6 +88,10 @@ $("#customersave").on("click", function (event) {
 const vallidnumber = (number) => {
     const sriLankanMobileRegex = /^(?:\+94|0)?7[0-9]{8}$/;
     return sriLankanMobileRegex.test(number);
+}
+const validCId = (cid) => {
+    const cidregex = /^C\d+$/;
+    return cidregex.test(cid);
 }
 
 $("#customerupdate").on("click", function (event) {
@@ -68,20 +101,62 @@ $("#customerupdate").on("click", function (event) {
     let caddress = $("#address").val();
     let csalary = $("#salary").val();
 
-    if (cid !== "" && cname !== "" ){
-        if (vallidnumber(cid)){
-            customerary[csindex].cid = cid
-            customerary[csindex].cname = cname;
-            customerary[csindex].caddress = caddress;
-            customerary[csindex].csalary = csalary;
 
-            loadCustomerTable();
-            clearcustomer();
-        }else{
-            alert("invalid number")
-        }
-    } else{
-        alert("Fill All Data")
+    if (!validCId(cid)){
+        Swal.fire({
+            position: "center",
+            icon: "warning",
+            title: "invalid Customer ID",
+            showConfirmButton: false,
+            timer: 1500
+        });
+    }else if(!cname.length > 0){
+        Swal.fire({
+            position: "center",
+            icon: "warning",
+            title: "invalid Name",
+            showConfirmButton: false,
+            timer: 1500
+        });
+    }else if(!caddress.length > 0){
+        Swal.fire({
+            position: "center",
+            icon: "warning",
+            title: "invalid Address",
+            showConfirmButton: false,
+            timer: 1500
+        });
+    }else if(!vallidnumber(csalary)){
+        Swal.fire({
+            position: "center",
+            icon: "warning",
+            title: "invalid telephone",
+            showConfirmButton: false,
+            timer: 1500
+        });
+    }else{
+
+        Swal.fire({
+            title: "Do you want to save the changes?",
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: "Save",
+            denyButtonText: `Don't save`
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                customerary[csindex].cid = cid
+                customerary[csindex].cname = cname;
+                customerary[csindex].caddress = caddress;
+                customerary[csindex].csalary = csalary;
+
+                loadCustomerTable();
+                clearcustomer();
+                Swal.fire("Saved!", "", "success");
+            } else if (result.isDenied) {
+                Swal.fire("Changes are not saved", "", "info");
+            }
+        });
     }
 
 });
